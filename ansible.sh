@@ -101,7 +101,8 @@ for ver in $ANSIBLE_VERSIONS; do
     mkvirtualenv ${ver} -p /usr/bin/python2 --no-site-packages > /dev/null 2>&1
   fi
   workon ${ver}
-  pip install -q packaging appdirs six paramiko PyYAML Jinja2 httplib2 docker-py netaddr ipaddr ansible~=${ver}.0 ansible-lint yamllint ansible-inventory-grapher boto boto3 apache-libcloud python-vagrant molecule
+  pip install -q packaging appdirs six paramiko PyYAML Jinja2 httplib2 docker-py netaddr ipaddr ansible~=${ver}.0 ansible-lint yamllint ansible-inventory-grapher boto boto3 apache-libcloud python-vagrant
+  pip install -q molecule
 
   cpvirtualenv ${ver} $(echo ${ver} | cut -f1-2 -d'.') > /dev/null 2>&1
 
