@@ -6,7 +6,7 @@
 
 export ANSIBLE_MIN_VERSION=2.3
 #export ANSIBLE_VERSIONS="2.8 2.6 2.3"
-export ANSIBLE_VERSIONS="2.8 2.7 2.6 2.5 2.4 2.3"
+export ANSIBLE_VERSIONS="2.9 2.8 2.7 2.6 2.5 2.4 2.3"
 
 # If you do not define ANSIBLE_VERSIONS; all ansible minor versions will be installed
 # starting from ANSIBLE_MIN_VERSION (this last variable has no other use besides that)
@@ -101,9 +101,8 @@ for ver in $ANSIBLE_VERSIONS; do
     mkvirtualenv ${ver} -p /usr/bin/python2 --no-site-packages > /dev/null 2>&1
   fi
   workon ${ver}
-  pip install -q packaging appdirs six paramiko PyYAML Jinja2 httplib2 docker-py netaddr ipaddr ansible~=${ver}.0 ansible-lint yamllint ansible-inventory-grapher boto boto3 apache-libcloud python-vagrant
-  pip install -q molecule
-
+  pip install -q packaging appdirs six paramiko PyYAML Jinja2 httplib2 docker-py netaddr ipaddr ansible~=${ver}.0 ansible-lint yamllint ansible-inventory-grapher boto boto3 apache-libcloud python-vagrant molecule
+  
   cpvirtualenv ${ver} $(echo ${ver} | cut -f1-2 -d'.') > /dev/null 2>&1
 
   if [ ${ANSIBLE_CURRENT_VERSION} == ${ver} ]; then
@@ -114,6 +113,7 @@ for ver in $ANSIBLE_VERSIONS; do
     echo "> Setting 'latest' venv to ${ver}"
     cpvirtualenv ${ver} latest > /dev/null 2>&1
   fi
+  deactivate
   chmod -R 777 /usr/libexec/virtualenv/
 done
 
